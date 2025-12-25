@@ -1,0 +1,155 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "具備樹狀結構與進階功能的側邊欄標籤管理工具。"
+  },
+  "unmute": {
+    "message": "取消靜音"
+  },
+  "mute": {
+    "message": "靜音"
+  },
+  "unpin": {
+    "message": "取消固定"
+  },
+  "pin": {
+    "message": "固定"
+  },
+  "refresh": {
+    "message": "重新整理"
+  },
+  "refreshpurge": {
+    "message": "強制重新整理 (不使用快取)"
+  },
+  "copyurl": {
+    "message": "複製網址"
+  },
+  "duplicate": {
+    "message": "複製標籤頁"
+  },
+  "bookmark": {
+    "message": "加入書籤"
+  },
+  "bookmarkchildren": {
+    "message": "將子標籤頁加入書籤"
+  },
+  "hibernate": {
+    "message": "休眠"
+  },
+  "close": {
+    "message": "關閉"
+  },
+  "closewithchildren": {
+    "message": "關閉標籤及其子標籤"
+  },
+  "newtab": {
+    "message": "新增標籤頁"
+  },
+  "newtabchild": {
+    "message": "新增子標籤頁"
+  },
+  "reopen": {
+    "message": "重新開啟"
+  },
+  "om_options": {
+    "message": "選項設定"
+  },
+  "om_manual": {
+    "message": "功能說明"
+  },
+  "om_optionsandmanual": {
+    "message": "設定與功能說明"
+  },
+  "options_saved": {
+    "message": "已儲存"
+  },
+  "options_saveerror": {
+    "message": "無效"
+  },
+  "om_defaulturl": {
+    "message": "新標籤頁的預設網址"
+  },
+  "om_newtab_title": {
+    "message": "新增標籤頁"
+  },
+  "om_newtab_1": {
+    "message": "在空白區域連點滑鼠左鍵兩下。"
+  },
+  "om_newtab_2": {
+    "message": "在空白區域點擊滑鼠右鍵開啟選單。"
+  },
+  "om_newtab_3": {
+    "message": "在標籤頁上點擊滑鼠右鍵開啟選單。"
+  },
+  "om_newtab_4": {
+    "message": "按住 Left-Control 鍵並在標籤頁上點擊右鍵選單，以建立子標籤頁。"
+  },
+  "om_closetab_title": {
+    "message": "關閉標籤頁"
+  },
+  "om_closetab_1": {
+    "message": "按住滑鼠左鍵並向右滑動。"
+  },
+  "om_closetab_2": {
+    "message": "點擊滑鼠中鍵。"
+  },
+  "om_closetab_3": {
+    "message": "透過右鍵選單關閉。"
+  },
+  "om_closetab_4": {
+    "message": "按住 Left-Control 鍵並點擊右鍵選單，以關閉該標籤的所有子標籤。"
+  },
+  "om_mutetab_title": {
+    "message": "將標籤頁靜音"
+  },
+  "om_mutetab_1": {
+    "message": "在狀態列上點擊滑鼠左鍵。"
+  },
+  "om_mutetab_2": {
+    "message": "透過右鍵選單設定。"
+  },
+  "om_selecttab_title": {
+    "message": "選取標籤頁"
+  },
+  "om_selecttab_1": {
+    "message": "使用滑鼠滾輪在標籤頁之間切換。若超過最後一個，將自動選回第一個。"
+  },
+  "om_selecttab_2": {
+    "message": "傳統的滑鼠左鍵點擊同樣有效。"
+  },
+  "om_reordertabs_title": {
+    "message": "重排標籤頁"
+  },
+  "om_reordertabs_1": {
+    "message": "按住 Left-Control 鍵，同時使用滑鼠左鍵拖曳標籤頁。"
+  },
+  "om_reordertabs_2": {
+    "message": "將標籤頁拖曳至另一標籤頁上方，可將其置於同層級。"
+  },
+  "om_reordertabs_3": {
+    "message": "將標籤頁拖曳至另一標籤頁下方，可將其設為其子標籤。"
+  },
+  "om_reordertabs_4": {
+    "message": "支援跨視窗拖放標籤頁。"
+  },
+  "om_other_title": {
+    "message": "其他功能"
+  },
+  "om_other_1": {
+    "message": "開啟右鍵選單時按住 Left-Control 鍵會改變某些選項（例如：改為將子標籤加入書籤，或改為關閉所有子標籤等）。"
+  },
+  "om_other_2": {
+    "message": "將滑鼠懸停在右鍵選單的按鈕上會顯示功能名稱工具提示。"
+  },
+  "om_other_3": {
+    "message": "將滑鼠懸停在標籤頁上會顯示該頁面的標題。"
+  },
+  "om_other_4": {
+    "message": "當使用 TabsTree 關閉標籤（而非透過瀏覽器原生關閉）時，會套用特殊邏輯來決定下一個啟用的標籤頁。"
+  },
+  "om_other_5": {
+    "message": "將標籤頁設為休眠可釋放記憶體。再次選取該標籤時頁面將重新載入。無法對目前使用中的標籤執行此操作。"
+  }
+}

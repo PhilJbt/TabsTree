@@ -1,0 +1,155 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "Une barre latérale de gestion d'onglets avec une structure en arbre et des fonctionnalités avancées."
+  },
+  "unmute": {
+    "message": "Réactiver le son"
+  },
+  "mute": {
+    "message": "Couper le son"
+  },
+  "unpin": {
+    "message": "Détacher"
+  },
+  "pin": {
+    "message": "Épingler"
+  },
+  "refresh": {
+    "message": "Actualiser"
+  },
+  "refreshpurge": {
+    "message": "Actualiser sans cache"
+  },
+  "copyurl": {
+    "message": "Copier l'URL"
+  },
+  "duplicate": {
+    "message": "Dupliquer"
+  },
+  "bookmark": {
+    "message": "Ajouter aux favoris"
+  },
+  "bookmarkchildren": {
+    "message": "Ajouter les enfants aux favoris"
+  },
+  "hibernate": {
+    "message": "Mettre en veille"
+  },
+  "close": {
+    "message": "Fermer"
+  },
+  "closewithchildren": {
+    "message": "Fermer avec les enfants"
+  },
+  "newtab": {
+    "message": "Nouvel onglet"
+  },
+  "newtabchild": {
+    "message": "Nouvel onglet enfant"
+  },
+  "reopen": {
+    "message": "Rouvrir"
+  },
+  "om_options": {
+    "message": "Options"
+  },
+  "om_manual": {
+    "message": "Fonctionnalités"
+  },
+  "om_optionsandmanual": {
+    "message": "Options & Fonctionnalités"
+  },
+  "options_saved": {
+    "message": "Enregistré"
+  },
+  "options_saveerror": {
+    "message": "Invalide"
+  },
+  "om_defaulturl": {
+    "message": "URL par défaut pour les nouveaux onglets"
+  },
+  "om_newtab_title": {
+    "message": "Nouvel onglet"
+  },
+  "om_newtab_1": {
+    "message": "Double-clic gauche sur une zone vide."
+  },
+  "om_newtab_2": {
+    "message": "Menu contextuel (clic droit) sur une zone vide."
+  },
+  "om_newtab_3": {
+    "message": "Menu contextuel (clic droit) sur un onglet."
+  },
+  "om_newtab_4": {
+    "message": "Menu contextuel (clic droit) en maintenant la touche Ctrl gauche sur un onglet pour le créer en tant qu'enfant."
+  },
+  "om_closetab_title": {
+    "message": "Fermer un onglet"
+  },
+  "om_closetab_1": {
+    "message": "Balayer vers la droite en maintenant le bouton gauche de la souris."
+  },
+  "om_closetab_2": {
+    "message": "Bouton central de la souris (molette)."
+  },
+  "om_closetab_3": {
+    "message": "Menu contextuel (clic droit)."
+  },
+  "om_closetab_4": {
+    "message": "Menu contextuel (clic droit) en maintenant la touche Ctrl gauche pour fermer les enfants de l'onglet."
+  },
+  "om_mutetab_title": {
+    "message": "Couper le son d'un onglet"
+  },
+  "om_mutetab_1": {
+    "message": "Clic gauche sur la barre d'état."
+  },
+  "om_mutetab_2": {
+    "message": "Menu contextuel (clic droit)."
+  },
+  "om_selecttab_title": {
+    "message": "Sélectionner un onglet"
+  },
+  "om_selecttab_1": {
+    "message": "Utiliser la molette de la souris pour naviguer entre les onglets. Si vous dépassez le dernier onglet, le premier est sélectionné."
+  },
+  "om_selecttab_2": {
+    "message": "Le clic gauche classique fonctionne également."
+  },
+  "om_reordertabs_title": {
+    "message": "Réorganiser les onglets"
+  },
+  "om_reordertabs_1": {
+    "message": "Maintenez la touche Ctrl gauche, puis utilisez le bouton gauche de la souris pour faire glisser un onglet."
+  },
+  "om_reordertabs_2": {
+    "message": "Faire glisser un onglet sur la partie supérieure d'un autre onglet le place au-dessus, au même niveau."
+  },
+  "om_reordertabs_3": {
+    "message": "Faire glisser un onglet sur la partie inférieure d'un autre onglet le place en dessous, en tant qu'enfant."
+  },
+  "om_reordertabs_4": {
+    "message": "Le glisser-déposer d'un onglet fonctionne entre différentes fenêtres."
+  },
+  "om_other_title": {
+    "message": "Divers"
+  },
+  "om_other_1": {
+    "message": "Maintenir la touche Ctrl gauche lors de l'ouverture du menu contextuel (clic droit) sur un onglet modifiera certaines options (ajouter les enfants aux favoris au lieu de l'onglet sélectionné uniquement, fermer les enfants au lieu de l'onglet sélectionné uniquement, etc.)."
+  },
+  "om_other_2": {
+    "message": "Survoler un bouton du menu contextuel affiche une info-bulle avec son nom."
+  },
+  "om_other_3": {
+    "message": "Survoler un onglet affiche une info-bulle avec son titre."
+  },
+  "om_other_4": {
+    "message": "Une logique spéciale est appliquée pour activer un onglet lorsqu'un autre onglet est fermé via TabsTree (et non par le navigateur)."
+  },
+  "om_other_5": {
+    "message": "Mettre un onglet en veille libère de la mémoire. La page sera rechargée lorsqu'elle sera de nouveau sélectionnée. Cette action ne peut pas être effectuée sur l'onglet actif."
+  }
+}

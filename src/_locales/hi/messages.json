@@ -1,0 +1,155 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "ट्री संरचना और उन्नत सुविधाओं वाला एक टैब प्रबंधन साइडबार।"
+  },
+  "unmute": {
+    "message": "अनम्यूट करें"
+  },
+  "mute": {
+    "message": "म्यूट करें"
+  },
+  "unpin": {
+    "message": "अनपिन करें"
+  },
+  "pin": {
+    "message": "पिन करें"
+  },
+  "refresh": {
+    "message": "रिफ्रेश करें"
+  },
+  "refreshpurge": {
+    "message": "बिना कैश के रिफ्रेश करें"
+  },
+  "copyurl": {
+    "message": "URL कॉपी करें"
+  },
+  "duplicate": {
+    "message": "डुप्लिकेट करें"
+  },
+  "bookmark": {
+    "message": "बुकमार्क करें"
+  },
+  "bookmarkchildren": {
+    "message": "चाइल्ड टैब्स को बुकमार्क करें"
+  },
+  "hibernate": {
+    "message": "हाइबरनेट करें"
+  },
+  "close": {
+    "message": "बंद करें"
+  },
+  "closewithchildren": {
+    "message": "चाइल्ड टैब्स के साथ बंद करें"
+  },
+  "newtab": {
+    "message": "नया टैब"
+  },
+  "newtabchild": {
+    "message": "चाइल्ड के रूप में नया टैब"
+  },
+  "reopen": {
+    "message": "फिर से खोलें"
+  },
+  "om_options": {
+    "message": "विकल्प"
+  },
+  "om_manual": {
+    "message": "विशेषताएं"
+  },
+  "om_optionsandmanual": {
+    "message": "विकल्प और विशेषताएं"
+  },
+  "options_saved": {
+    "message": "सहेजा गया"
+  },
+  "options_saveerror": {
+    "message": "अमान्य"
+  },
+  "om_defaulturl": {
+    "message": "नए टैब के लिए डिफ़ॉल्ट URL"
+  },
+  "om_newtab_title": {
+    "message": "नया टैब"
+  },
+  "om_newtab_1": {
+    "message": "खाली जगह पर माउस का बायां बटन (Left Mouse Button) डबल-क्लिक करें।"
+  },
+  "om_newtab_2": {
+    "message": "खाली जगह पर राइट-क्लिक संदर्भ मेनू (Context Menu)।"
+  },
+  "om_newtab_3": {
+    "message": "टैब पर राइट-क्लिक संदर्भ मेनू।"
+  },
+  "om_newtab_4": {
+    "message": "किसी टैब पर Left-Control दबाकर रखते हुए राइट-क्लिक करें ताकि उसे चाइल्ड के रूप में बनाया जा सके।"
+  },
+  "om_closetab_title": {
+    "message": "टैब बंद करें"
+  },
+  "om_closetab_1": {
+    "message": "बायां माउस बटन दबाकर दाईं ओर स्वाइप करें।"
+  },
+  "om_closetab_2": {
+    "message": "माउस का बीच वाला बटन (Middle Mouse Button)।"
+  },
+  "om_closetab_3": {
+    "message": "राइट-क्लिक संदर्भ मेनू।"
+  },
+  "om_closetab_4": {
+    "message": "टैब के चाइल्ड्स को बंद करने के लिए Left-Control दबाकर रखते हुए राइट-क्लिक करें।"
+  },
+  "om_mutetab_title": {
+    "message": "टैब म्यूट करें"
+  },
+  "om_mutetab_1": {
+    "message": "स्टेटस बार पर माउस का बायां बटन क्लिक करें।"
+  },
+  "om_mutetab_2": {
+    "message": "राइट-क्लिक संदर्भ मेनू।"
+  },
+  "om_selecttab_title": {
+    "message": "टैब चुनें"
+  },
+  "om_selecttab_1": {
+    "message": "टैब के बीच स्विच करने के लिए माउस व्हील घुमाएं। यदि आप अंतिम टैब से आगे जाते हैं, तो पहला टैब चुना जाएगा।"
+  },
+  "om_selecttab_2": {
+    "message": "सामान्य बायां माउस बटन (Left Mouse Button) भी काम करता है।"
+  },
+  "om_reordertabs_title": {
+    "message": "टैब का क्रम बदलें"
+  },
+  "om_reordertabs_1": {
+    "message": "टैब को ड्रैग करने के लिए Left-Control दबाए रखें, फिर बायां माउस बटन दबाकर खींचें।"
+  },
+  "om_reordertabs_2": {
+    "message": "एक टैब को दूसरे टैब के ऊपर ड्रैग करने से वह उसके ऊपर एक सिबलिंग (Sibling) के रूप में रखा जाता है।"
+  },
+  "om_reordertabs_3": {
+    "message": "एक टैब को दूसरे टैब के नीचे ड्रैग करने से वह उसके नीचे एक चाइल्ड (Child) के रूप में रखा जाता है।"
+  },
+  "om_reordertabs_4": {
+    "message": "टैब को ड्रैग और ड्रॉप (Drag and drop) करना अलग-अलग विंडोज़ में भी संभव है।"
+  },
+  "om_other_title": {
+    "message": "अन्य"
+  },
+  "om_other_1": {
+    "message": "टैब पर राइट-क्लिक संदर्भ मेनू खोलते समय Left-Control दबाए रखने से कुछ विकल्प बदल जाते हैं (जैसे केवल चुने हुए टैब के बजाय चाइल्ड टैब को बुकमार्क करना या बंद करना, आदि)।"
+  },
+  "om_other_2": {
+    "message": "राइट-क्लिक संदर्भ मेनू के किसी बटन पर होवर करने से उसका नाम टूलटिप के रूप में दिखाई देता है।"
+  },
+  "om_other_3": {
+    "message": "किसी टैब पर होवर करने से उसका शीर्षक टूलटिप के रूप में दिखाई देता है।"
+  },
+  "om_other_4": {
+    "message": "जब TabsTree (न कि ब्राउज़र) के माध्यम से कोई टैब बंद किया जाता है, तो दूसरे टैब को सक्रिय करने के लिए विशेष लॉजिक का उपयोग किया जाता है।"
+  },
+  "om_other_5": {
+    "message": "टैब को हाइबरनेशन में डालने से मेमोरी खाली हो जाती है। जब इसे दोबारा चुना जाएगा, तो पेज फिर से लोड होगा। यह वर्तमान में सक्रिय टैब पर नहीं किया जा सकता।"
+  }
+}

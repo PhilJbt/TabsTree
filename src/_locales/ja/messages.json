@@ -1,0 +1,155 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "ツリー構造と高度な機能を備えた、タブ管理サイドバー。"
+  },
+  "unmute": {
+    "message": "ミュート解除"
+  },
+  "mute": {
+    "message": "ミュート"
+  },
+  "unpin": {
+    "message": "固定を解除"
+  },
+  "pin": {
+    "message": "固定"
+  },
+  "refresh": {
+    "message": "更新"
+  },
+  "refreshpurge": {
+    "message": "キャッシュを無視して更新"
+  },
+  "copyurl": {
+    "message": "URLをコピー"
+  },
+  "duplicate": {
+    "message": "複製"
+  },
+  "bookmark": {
+    "message": "ブックマーク"
+  },
+  "bookmarkchildren": {
+    "message": "子タブをブックマーク"
+  },
+  "hibernate": {
+    "message": "休止"
+  },
+  "close": {
+    "message": "閉じる"
+  },
+  "closewithchildren": {
+    "message": "子タブも含めて閉じる"
+  },
+  "newtab": {
+    "message": "新しいタブ"
+  },
+  "newtabchild": {
+    "message": "子タブとして開く"
+  },
+  "reopen": {
+    "message": "再び開く"
+  },
+  "om_options": {
+    "message": "設定"
+  },
+  "om_manual": {
+    "message": "機能"
+  },
+  "om_optionsandmanual": {
+    "message": "設定と機能"
+  },
+  "options_saved": {
+    "message": "保存済み"
+  },
+  "options_saveerror": {
+    "message": "無効"
+  },
+  "om_defaulturl": {
+    "message": "新しいタブのデフォルトURL"
+  },
+  "om_newtab_title": {
+    "message": "新しいタブ"
+  },
+  "om_newtab_1": {
+    "message": "空白エリアでマウスの左ボタンをダブルクリック。"
+  },
+  "om_newtab_2": {
+    "message": "空白エリアで右クリックメニューを使用。"
+  },
+  "om_newtab_3": {
+    "message": "タブ上で右クリックメニューを使用。"
+  },
+  "om_newtab_4": {
+    "message": "Ctrlキーを押しながらタブを右クリックすると、子タブとして作成します。"
+  },
+  "om_closetab_title": {
+    "message": "タブを閉じる"
+  },
+  "om_closetab_1": {
+    "message": "左マウスボタンを押しながら右へスワイプ。"
+  },
+  "om_closetab_2": {
+    "message": "マウスの中ボタンをクリック。"
+  },
+  "om_closetab_3": {
+    "message": "右クリックメニューを使用。"
+  },
+  "om_closetab_4": {
+    "message": "Ctrlキーを押しながら右クリックメニューから閉じると、子タブも一緒に閉じます。"
+  },
+  "om_mutetab_title": {
+    "message": "タブをミュート"
+  },
+  "om_mutetab_1": {
+    "message": "ステータスバー上でマウスの左ボタンをクリック。"
+  },
+  "om_mutetab_2": {
+    "message": "右クリックメニューを使用。"
+  },
+  "om_selecttab_title": {
+    "message": "タブを選択"
+  },
+  "om_selecttab_1": {
+    "message": "マウスホイールでタブを切り替え。最後のタブを過ぎると、最初のタブが選択されます。"
+  },
+  "om_selecttab_2": {
+    "message": "通常のマウス左ボタンによるクリックも有効です。"
+  },
+  "om_reordertabs_title": {
+    "message": "タブの並べ替え"
+  },
+  "om_reordertabs_1": {
+    "message": "Ctrlキーを押しながら、左マウスボタンでタブをドラッグ。"
+  },
+  "om_reordertabs_2": {
+    "message": "タブを別のタブの上部にドラッグすると、その上に（兄弟タブとして）配置されます。"
+  },
+  "om_reordertabs_3": {
+    "message": "タブを別のタブの下部にドラッグすると、その下に子タブとして配置されます。"
+  },
+  "om_reordertabs_4": {
+    "message": "タブのドラッグ＆ドロップは、異なるウィンドウ間でも可能です。"
+  },
+  "om_other_title": {
+    "message": "その他"
+  },
+  "om_other_1": {
+    "message": "Ctrlキーを押しながら右クリックメニューを開くと、一部の機能が変化します（選択したタブのみではなく子タブもブックマーク、子タブも閉じる、など）。"
+  },
+  "om_other_2": {
+    "message": "右クリックメニューのボタンにカーソルを合わせると、ツールチップで名前が表示されます。"
+  },
+  "om_other_3": {
+    "message": "タブにカーソルを合わせると、ツールチップでタイトルが表示されます。"
+  },
+  "om_other_4": {
+    "message": "ブラウザ本体ではなくTabsTreeでタブを閉じた場合、次にアクティブにするタブを決定するための独自のロジックが適用されます。"
+  },
+  "om_other_5": {
+    "message": "タブを休止させるとメモリを解放できます。ページは再度選択された時にリロードされます。現在アクティブなタブを休止させることはできません。"
+  }
+}

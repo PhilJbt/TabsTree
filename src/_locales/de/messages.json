@@ -1,0 +1,155 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "Eine Seitenleiste zur Tab-Verwaltung mit Baumstruktur und erweiterten Funktionen."
+  },
+  "unmute": {
+    "message": "Stummschaltung aufheben"
+  },
+  "mute": {
+    "message": "Stummschalten"
+  },
+  "unpin": {
+    "message": "Anheften aufheben"
+  },
+  "pin": {
+    "message": "Anheften"
+  },
+  "refresh": {
+    "message": "Aktualisieren"
+  },
+  "refreshpurge": {
+    "message": "Ohne Cache aktualisieren"
+  },
+  "copyurl": {
+    "message": "URL kopieren"
+  },
+  "duplicate": {
+    "message": "Duplizieren"
+  },
+  "bookmark": {
+    "message": "Lesezeichen hinzufügen"
+  },
+  "bookmarkchildren": {
+    "message": "Untergeordnete Tabs als Lesezeichen speichern"
+  },
+  "hibernate": {
+    "message": "Ruhezustand"
+  },
+  "close": {
+    "message": "Schließen"
+  },
+  "closewithchildren": {
+    "message": "Mit untergeordneten Tabs schließen"
+  },
+  "newtab": {
+    "message": "Neuer Tab"
+  },
+  "newtabchild": {
+    "message": "Neuer untergeordneter Tab"
+  },
+  "reopen": {
+    "message": "Wieder öffnen"
+  },
+  "om_options": {
+    "message": "Optionen"
+  },
+  "om_manual": {
+    "message": "Funktionen"
+  },
+  "om_optionsandmanual": {
+    "message": "Optionen & Funktionen"
+  },
+  "options_saved": {
+    "message": "Gespeichert"
+  },
+  "options_saveerror": {
+    "message": "Ungültig"
+  },
+  "om_defaulturl": {
+    "message": "Standard-URL für neue Tabs"
+  },
+  "om_newtab_title": {
+    "message": "Neuer Tab"
+  },
+  "om_newtab_1": {
+    "message": "Doppelklick mit der linken Maustaste auf einen leeren Bereich."
+  },
+  "om_newtab_2": {
+    "message": "Rechtsklick-Kontextmenü in einem leeren Bereich."
+  },
+  "om_newtab_3": {
+    "message": "Rechtsklick-Kontextmenü auf einem Tab."
+  },
+  "om_newtab_4": {
+    "message": "Rechtsklick-Kontextmenü bei gedrückter linker Strg-Taste auf einem Tab, um ihn als untergeordneten Tab zu erstellen."
+  },
+  "om_closetab_title": {
+    "message": "Einen Tab schließen"
+  },
+  "om_closetab_1": {
+    "message": "Mit gedrückter linker Maustaste nach rechts wischen."
+  },
+  "om_closetab_2": {
+    "message": "Mittlere Maustaste."
+  },
+  "om_closetab_3": {
+    "message": "Rechtsklick-Kontextmenü."
+  },
+  "om_closetab_4": {
+    "message": "Rechtsklick-Kontextmenü bei gedrückter linker Strg-Taste, um die untergeordneten Tabs zu schließen."
+  },
+  "om_mutetab_title": {
+    "message": "Einen Tab stummschalten"
+  },
+  "om_mutetab_1": {
+    "message": "Linke Maustaste auf der Statusleiste."
+  },
+  "om_mutetab_2": {
+    "message": "Rechtsklick-Kontextmenü."
+  },
+  "om_selecttab_title": {
+    "message": "Einen Tab auswählen"
+  },
+  "om_selecttab_1": {
+    "message": "Mausrad zum Wechseln zwischen Tabs. Wenn der letzte Tab überschritten wird, wird der erste ausgewählt."
+  },
+  "om_selecttab_2": {
+    "message": "Die klassische linke Maustaste funktioniert ebenfalls."
+  },
+  "om_reordertabs_title": {
+    "message": "Tabs neu anordnen"
+  },
+  "om_reordertabs_1": {
+    "message": "Linke Strg-Taste gedrückt halten und dann mit der linken Maustaste einen Tab ziehen."
+  },
+  "om_reordertabs_2": {
+    "message": "Das Ziehen eines Tabs auf den oberen Teil eines anderen Tabs platziert ihn darüber (auf derselben Ebene)."
+  },
+  "om_reordertabs_3": {
+    "message": "Das Ziehen eines Tabs auf den unteren Teil eines anderen Tabs platziert ihn darunter (als untergeordneten Tab)."
+  },
+  "om_reordertabs_4": {
+    "message": "Das Ziehen und Ablegen von Tabs funktioniert fensterübergreifend."
+  },
+  "om_other_title": {
+    "message": "Sonstiges"
+  },
+  "om_other_1": {
+    "message": "Das Halten der linken Strg-Taste beim Öffnen des Rechtsklick-Kontextmenüs ändert einige Optionen (z. B. untergeordnete Tabs als Lesezeichen speichern oder schließen)."
+  },
+  "om_other_2": {
+    "message": "Das Bewegen des Mauszeigers über eine Schaltfläche im Kontextmenü zeigt einen Tooltip mit deren Namen an."
+  },
+  "om_other_3": {
+    "message": "Das Bewegen des Mauszeigers über einen Tab zeigt einen Tooltip mit dessen Titel an."
+  },
+  "om_other_4": {
+    "message": "Es wird eine spezielle Logik angewendet, um einen Tab zu aktivieren, wenn ein anderer Tab mit TabsTree (und nicht über den Browser) geschlossen wird."
+  },
+  "om_other_5": {
+    "message": "Den Ruhezustand für einen Tab zu aktivieren, gibt Speicherplatz frei. Die Seite wird neu geladen, sobald sie wieder ausgewählt wird. Dies ist für den aktuell aktiven Tab nicht möglich."
+  }
+}

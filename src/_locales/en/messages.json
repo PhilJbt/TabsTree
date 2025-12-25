@@ -1,0 +1,167 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "A tab management sidebar with tree structure and advanced features."
+  },
+  "unmute": {
+    "message": "Unmute"
+  },
+  "mute": {
+    "message": "Mute"
+  },
+  "unpin": {
+    "message": "Unpin"
+  },
+  "pin": {
+    "message": "Pin"
+  },
+  "refresh": {
+    "message": "Refresh"
+  },
+  "refreshpurge": {
+    "message": "Refresh without cache"
+  },
+  "copyurl": {
+    "message": "Copy URL"
+  },
+  "duplicate": {
+    "message": "Duplicate"
+  },
+  "bookmark": {
+    "message": "Bookmark"
+  },
+  "bookmarkchildren": {
+    "message": "Bookmark children"
+  },
+  "hibernate": {
+    "message": "Hibernate"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "closewithchildren": {
+    "message": "Close with children"
+  },
+  "newtab": {
+    "message": "New tab"
+  },
+  "newtabchild": {
+    "message": "New tab as child"
+  },
+  "reopen": {
+    "message": "Reopen"
+  },
+  "om_options": {
+    "message": "Options"
+  },
+  "om_manual": {
+    "message": "Features"
+  },
+  "om_optionsandmanual": {
+    "message": "Options & Features"
+  },
+  "options_saved": {
+    "message": "Saved"
+  },
+  "options_saveerror": {
+    "message": "Invalid"
+  },
+  "om_defaulturl": {
+    "message": "Default URL for new tabs"
+  },
+  "om_newtab_title": {
+    "message": "New tab"
+  },
+  "om_newtab_1": {
+    "message": "Double Left Mouse Button on an empty area."
+  },
+  "om_newtab_2": {
+    "message": "Right-click context menu on a empty area."
+  },
+  "om_newtab_3": {
+    "message": "Right-click context menu on a tab."
+  },
+  "om_newtab_4": {
+    "message": "Right-click context menu while holding Left-Control on a tab to create it as a child."
+  },
+  "om_closetab_title": {
+    "message": "Close a tab"
+  },
+  "om_closetab_1": {
+    "message": "Swipe to the right by holding Left Mouse Button."
+  },
+  "om_closetab_2": {
+    "message": "Middle Mouse Button."
+  },
+  "om_closetab_3": {
+    "message": "Right-click context menu."
+  },
+  "om_closetab_4": {
+    "message": "Right-click context menu while holding Left-Control to close tab's children."
+  },
+  "om_mutetab_title": {
+    "message": "Mute a tab"
+  },
+  "om_mutetab_1": {
+    "message": "Left Mouse Button on the status bar."
+  },
+  "om_mutetab_2": {
+    "message": "Right-click context menu."
+  },
+  "om_selecttab_title": {
+    "message": "Select a tab"
+  },
+  "om_selecttab_1": {
+    "message": "Wheel Mouse cycle between tabs. If you go past the last tab, the first one is selected."
+  },
+  "om_selecttab_2": {
+    "message": "The classical Left Mouse Button works too."
+  },
+  "om_reordertabs_title": {
+    "message": "Reorder tabs"
+  },
+  "om_reordertabs_1": {
+    "message": "Hold Left-Control, then use and maintain Left Mouse Button to drag a tab."
+  },
+  "om_reordertabs_2": {
+    "message": "Dragging a tab onto the top of another tab places it above it, as a sibling."
+  },
+  "om_reordertabs_3": {
+    "message": "Dragging a tab onto the bottom of another tab places it below it, as a child."
+  },
+  "om_reordertabs_4": {
+    "message": "Drag and drop a tab supports differents windows."
+  },
+  "om_other_title": {
+    "message": "Other"
+  },
+  "om_other_1": {
+    "message": "Holding Left-Control when opening the Right-click context menu on a tab will modify some options (bookmark children instead of only the selected tab, close children instead of only the selected tab, etc)."
+  },
+  "om_other_2": {
+    "message": "Hover a button of the Right-click context menu displays a tooltip with its name."
+  },
+  "om_other_3": {
+    "message": "Hover a tab displays a tooltip with its title."
+  },
+  "om_other_4": {
+    "message": "Special logic is applied to activate a tab when another tab is closed with Tabstree (and not with the browser)."
+  },
+  "om_other_5": {
+    "message": "Putting a tab to hibernation frees up memory. The page will be reloaded when it is selected again. This can't be done on a currently active tab."
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

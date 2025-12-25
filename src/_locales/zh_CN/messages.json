@@ -1,0 +1,155 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "具有树状结构和高级功能的侧边栏标签页管理工具。"
+  },
+  "unmute": {
+    "message": "取消静音"
+  },
+  "mute": {
+    "message": "静音"
+  },
+  "unpin": {
+    "message": "取消固定"
+  },
+  "pin": {
+    "message": "固定"
+  },
+  "refresh": {
+    "message": "刷新"
+  },
+  "refreshpurge": {
+    "message": "强制刷新 (不使用缓存)"
+  },
+  "copyurl": {
+    "message": "复制网址"
+  },
+  "duplicate": {
+    "message": "复制标签页"
+  },
+  "bookmark": {
+    "message": "添加书签"
+  },
+  "bookmarkchildren": {
+    "message": "为子标签页添加书签"
+  },
+  "hibernate": {
+    "message": "休眠"
+  },
+  "close": {
+    "message": "关闭"
+  },
+  "closewithchildren": {
+    "message": "关闭标签及其子标签"
+  },
+  "newtab": {
+    "message": "新建标签页"
+  },
+  "newtabchild": {
+    "message": "新建子标签页"
+  },
+  "reopen": {
+    "message": "重新打开"
+  },
+  "om_options": {
+    "message": "选项"
+  },
+  "om_manual": {
+    "message": "功能说明"
+  },
+  "om_optionsandmanual": {
+    "message": "选项与功能说明"
+  },
+  "options_saved": {
+    "message": "已保存"
+  },
+  "options_saveerror": {
+    "message": "无效"
+  },
+  "om_defaulturl": {
+    "message": "新标签页的默认网址"
+  },
+  "om_newtab_title": {
+    "message": "新建标签页"
+  },
+  "om_newtab_1": {
+    "message": "在空白区域双击鼠标左键。"
+  },
+  "om_newtab_2": {
+    "message": "在空白区域点击鼠标右键菜单。"
+  },
+  "om_newtab_3": {
+    "message": "在标签页上点击鼠标右键菜单。"
+  },
+  "om_newtab_4": {
+    "message": "按住 Left-Control 键并点击标签页右键菜单以创建子标签。"
+  },
+  "om_closetab_title": {
+    "message": "关闭标签页"
+  },
+  "om_closetab_1": {
+    "message": "按住鼠标左键并向右滑动。"
+  },
+  "om_closetab_2": {
+    "message": "点击鼠标中键。"
+  },
+  "om_closetab_3": {
+    "message": "通过右键菜单关闭。"
+  },
+  "om_closetab_4": {
+    "message": "按住 Left-Control 键并点击右键菜单以关闭该标签的子标签。"
+  },
+  "om_mutetab_title": {
+    "message": "标签页静音"
+  },
+  "om_mutetab_1": {
+    "message": "点击状态栏上的鼠标左键。"
+  },
+  "om_mutetab_2": {
+    "message": "通过右键菜单设置。"
+  },
+  "om_selecttab_title": {
+    "message": "选择标签页"
+  },
+  "om_selecttab_1": {
+    "message": "使用鼠标滚轮在标签页之间切换。如果超过最后一个，将自动跳回第一个。"
+  },
+  "om_selecttab_2": {
+    "message": "传统的鼠标左键点击同样有效。"
+  },
+  "om_reordertabs_title": {
+    "message": "重排标签页"
+  },
+  "om_reordertabs_1": {
+    "message": "按住 Left-Control 键，同时按住鼠标左键拖动标签页。"
+  },
+  "om_reordertabs_2": {
+    "message": "将标签页拖动到另一个标签页上方，可将其置于同级。"
+  },
+  "om_reordertabs_3": {
+    "message": "将标签页拖动到另一个标签页下方，可将其设为子标签。"
+  },
+  "om_reordertabs_4": {
+    "message": "支持跨窗口拖放标签页。"
+  },
+  "om_other_title": {
+    "message": "其他"
+  },
+  "om_other_1": {
+    "message": "打开右键菜单时按住 Left-Control 键会修改某些选项（例如：为子标签添加书签而非仅当前标签，关闭子标签而非仅当前标签等）。"
+  },
+  "om_other_2": {
+    "message": "将鼠标悬停在右键菜单的按钮上会显示其功能名称的工具提示。"
+  },
+  "om_other_3": {
+    "message": "将鼠标悬停在标签页上会显示该页面的标题。"
+  },
+  "om_other_4": {
+    "message": "当使用 TabsTree 关闭标签页（而非通过浏览器自带功能）时，会应用特殊逻辑来激活下一个标签页。"
+  },
+  "om_other_5": {
+    "message": "将标签页设为休眠可释放内存。再次选中该标签时页面将重新加载。无法对当前活动标签执行此操作。"
+  }
+}

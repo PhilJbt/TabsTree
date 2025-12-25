@@ -1,0 +1,155 @@
+{
+  "extName": {
+    "message": "TabsTree"
+  },
+  "extDescription": {
+    "message": "Una barra lateral de gestión de pestañas con estructura de árbol y funciones avanzadas."
+  },
+  "unmute": {
+    "message": "Activar sonido"
+  },
+  "mute": {
+    "message": "Silenciar"
+  },
+  "unpin": {
+    "message": "Desfijar"
+  },
+  "pin": {
+    "message": "Fijar"
+  },
+  "refresh": {
+    "message": "Actualizar"
+  },
+  "refreshpurge": {
+    "message": "Actualizar sin caché"
+  },
+  "copyurl": {
+    "message": "Copiar URL"
+  },
+  "duplicate": {
+    "message": "Duplicar"
+  },
+  "bookmark": {
+    "message": "Añadir a marcadores"
+  },
+  "bookmarkchildren": {
+    "message": "Añadir pestañas hijas a marcadores"
+  },
+  "hibernate": {
+    "message": "Hibernar"
+  },
+  "close": {
+    "message": "Cerrar"
+  },
+  "closewithchildren": {
+    "message": "Cerrar con pestañas hijas"
+  },
+  "newtab": {
+    "message": "Nueva pestaña"
+  },
+  "newtabchild": {
+    "message": "Nueva pestaña como hija"
+  },
+  "reopen": {
+    "message": "Volver a abrir"
+  },
+  "om_options": {
+    "message": "Opciones"
+  },
+  "om_manual": {
+    "message": "Funciones"
+  },
+  "om_optionsandmanual": {
+    "message": "Opciones y funciones"
+  },
+  "options_saved": {
+    "message": "Guardado"
+  },
+  "options_saveerror": {
+    "message": "No válido"
+  },
+  "om_defaulturl": {
+    "message": "URL predeterminada para nuevas pestañas"
+  },
+  "om_newtab_title": {
+    "message": "Nueva pestaña"
+  },
+  "om_newtab_1": {
+    "message": "Doble clic con el botón izquierdo en un área vacía."
+  },
+  "om_newtab_2": {
+    "message": "Menú contextual (clic derecho) en un área vacía."
+  },
+  "om_newtab_3": {
+    "message": "Menú contextual (clic derecho) en una pestaña."
+  },
+  "om_newtab_4": {
+    "message": "Menú contextual (clic derecho) mientras se mantiene presionada la tecla Ctrl izquierda en una pestaña para crearla como hija."
+  },
+  "om_closetab_title": {
+    "message": "Cerrar una pestaña"
+  },
+  "om_closetab_1": {
+    "message": "Deslizar a la derecha manteniendo presionado el botón izquierdo del ratón."
+  },
+  "om_closetab_2": {
+    "message": "Botón central del ratón."
+  },
+  "om_closetab_3": {
+    "message": "Menú contextual (clic derecho)."
+  },
+  "om_closetab_4": {
+    "message": "Menú contextual (clic derecho) mientras se mantiene presionada la tecla Ctrl izquierda para cerrar las pestañas hijas."
+  },
+  "om_mutetab_title": {
+    "message": "Silenciar una pestaña"
+  },
+  "om_mutetab_1": {
+    "message": "Botón izquierdo del ratón en la barra de estado."
+  },
+  "om_mutetab_2": {
+    "message": "Menú contextual (clic derecho)."
+  },
+  "om_selecttab_title": {
+    "message": "Seleccionar una pestaña"
+  },
+  "om_selecttab_1": {
+    "message": "Usar la rueda del ratón para desplazarse entre pestañas. Al pasar la última, se selecciona la primera."
+  },
+  "om_selecttab_2": {
+    "message": "El clic izquierdo clásico también funciona."
+  },
+  "om_reordertabs_title": {
+    "message": "Reordenar pestañas"
+  },
+  "om_reordertabs_1": {
+    "message": "Mantener presionado Ctrl izquierdo y usar el botón izquierdo del ratón para arrastrar una pestaña."
+  },
+  "om_reordertabs_2": {
+    "message": "Arrastrar una pestaña a la parte superior de otra la coloca encima, como pestaña hermana."
+  },
+  "om_reordertabs_3": {
+    "message": "Arrastrar una pestaña a la parte inferior de otra la coloca debajo, como pestaña hija."
+  },
+  "om_reordertabs_4": {
+    "message": "Arrastrar y soltar pestañas es compatible entre diferentes ventanas."
+  },
+  "om_other_title": {
+    "message": "Otros"
+  },
+  "om_other_1": {
+    "message": "Mantener presionado Ctrl izquierdo al abrir el menú contextual en una pestaña modificará algunas opciones (marcar pestañas hijas en lugar de solo la seleccionada, cerrar hijas en lugar de solo la seleccionada, etc.)."
+  },
+  "om_other_2": {
+    "message": "Pasar el cursor sobre un botón del menú contextual muestra una descripción con su nombre."
+  },
+  "om_other_3": {
+    "message": "Pasar el cursor sobre una pestaña muestra una descripción con su título."
+  },
+  "om_other_4": {
+    "message": "Se aplica una lógica especial para activar una pestaña cuando se cierra otra con TabsTree (y no con el navegador)."
+  },
+  "om_other_5": {
+    "message": "Hibernar una pestaña libera memoria. La página se recargará cuando se seleccione de nuevo. Esto no se puede realizar en una pestaña activa."
+  }
+}
