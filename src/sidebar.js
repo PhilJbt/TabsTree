@@ -590,92 +590,94 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 	 * which means the tab is already closed. It is therefore necessary to determine which tab to activate, but without having its direct ascendant.
 	 */
 	async function chooseTabToActivate(_tabIdToRemove, _postEvent = false) {
-		// Tabstree was not the reason for the closure
-		if (_postEvent) {
-			const activeTabs = await chrome.tabs.query({
-	            active: true,
-	            windowId: myWindowId
-	        });
+		await mutexDOM.runExclusive(async () => {
+			// Tabstree was not the reason for the closure
+			if (_postEvent) {
+				const activeTabs = await chrome.tabs.query({
+		            active: true,
+		            windowId: myWindowId
+		        });
 
-			// If there is no tab currently active
-	        if (activeTabs.length === 0) {
-	        	const structWnd = await tabstructGet();
-	            const arrTabs = Array.from(structWnd.keys())
-	            let nearestId = Number.MAX_SAFE_INTEGER;
+				// If there is no tab currently active
+		        if (activeTabs.length === 0) {
+		        	const structWnd = await tabstructGet();
+		            const arrTabs = Array.from(structWnd.keys())
+		            let nearestId = Number.MAX_SAFE_INTEGER;
 
-	            for (const tabId of arrTabs) {
-	            	if (Math.abs(tabId - _tabIdToRemove) < Math.abs(nearestId - _tabIdToRemove)) {
-	            		nearestId = tabId;
-	            	}
-	            }
+		            for (const tabId of arrTabs) {
+		            	if (Math.abs(tabId - _tabIdToRemove) < Math.abs(nearestId - _tabIdToRemove)) {
+		            		nearestId = tabId;
+		            	}
+		            }
 
-	            if (nearestId !== Number.MAX_SAFE_INTEGER)
-        			chrome.tabs.update(nearestId, { active: true });
+		            if (nearestId !== Number.MAX_SAFE_INTEGER)
+	        			chrome.tabs.update(nearestId, { active: true });
+				}
 			}
-		}
-		// Tabstree was the reason for the closure
-		else {
-			const activeTabs = await chrome.tabs.query({
-	            active: true,
-	            windowId: myWindowId
-	        });
+			// Tabstree was the reason for the closure
+			else {
+				const activeTabs = await chrome.tabs.query({
+		            active: true,
+		            windowId: myWindowId
+		        });
 
-	        if (activeTabs.length === 0
-	        	|| _tabIdToRemove === activeTabs[0].id) {
-	        	let tabIdActivate = null;
-	        	const structWnd = await tabstructGet();
-	            const indexTab = Array.from(structWnd.keys()).indexOf(_tabIdToRemove);
-	            const arrTabs = Array.from(structWnd.entries());
-	        	const parentTabID = arrTabs[indexTab][1];
+		        if (activeTabs.length === 0
+		        	|| _tabIdToRemove === activeTabs[0].id) {
+		        	let tabIdActivate = null;
+		        	const structWnd = await tabstructGet();
+		            const indexTab = Array.from(structWnd.keys()).indexOf(_tabIdToRemove);
+		            const arrTabs = Array.from(structWnd.entries());
+		        	const parentTabID = arrTabs[indexTab][1];
 
-	        	// Does the next element is its child
-	        	if (indexTab < arrTabs.length - 1
-	        		&& arrTabs[indexTab + 1][1] === _tabIdToRemove) {
-	        		tabIdActivate = arrTabs[indexTab + 1][0];
-	        	}
+		        	// Does the next element is its child
+		        	if (indexTab < arrTabs.length - 1
+		        		&& arrTabs[indexTab + 1][1] === _tabIdToRemove) {
+		        		tabIdActivate = arrTabs[indexTab + 1][0];
+		        	}
 
-	            // Looking for the next sibling
-	            if (tabIdActivate === null) {
-		            for (let i = indexTab + 1; i < arrTabs.length; ++i) {
-		                if (arrTabs[i][1] === parentTabID) {
-		                    tabIdActivate = arrTabs[i][0];
-		                    break;
+		            // Looking for the next sibling
+		            if (tabIdActivate === null) {
+			            for (let i = indexTab + 1; i < arrTabs.length; ++i) {
+			                if (arrTabs[i][1] === parentTabID) {
+			                    tabIdActivate = arrTabs[i][0];
+			                    break;
+			                }
+			            }
+			        }
+
+		            // Looking for the previous sibling
+		            if (tabIdActivate === null) {
+		                for (let i = indexTab - 1; i >= 0; --i) {
+		                    if (arrTabs[i][1] === parentTabID) {
+		                        tabIdActivate = arrTabs[i][0];
+		                        break;
+		                    }
 		                }
 		            }
+
+		            // Looking for the parent
+		            if (tabIdActivate === null) {
+		                for (let i = indexTab - 1; i >= 0; --i) {
+		                    if (arrTabs[i][0] === parentTabID) {
+		                        tabIdActivate = arrTabs[i][0];
+		                        break;
+		                    }
+		                }
+		            }
+
+		            // Security
+		            if (tabIdActivate === null
+		            	&& structWnd.length > 0) {
+		                tabIdActivate = Array.from(structWnd.keys())[0];
+		            }
+
+		            // Activate the specified tab
+		            if (tabIdActivate !== null) {
+		                chrome.tabs.update(tabIdActivate, { active: true });
+		            }
 		        }
-
-	            // Looking for the previous sibling
-	            if (tabIdActivate === null) {
-	                for (let i = indexTab - 1; i >= 0; --i) {
-	                    if (arrTabs[i][1] === parentTabID) {
-	                        tabIdActivate = arrTabs[i][0];
-	                        break;
-	                    }
-	                }
-	            }
-
-	            // Looking for the parent
-	            if (tabIdActivate === null) {
-	                for (let i = indexTab - 1; i >= 0; --i) {
-	                    if (arrTabs[i][0] === parentTabID) {
-	                        tabIdActivate = arrTabs[i][0];
-	                        break;
-	                    }
-	                }
-	            }
-
-	            // Security
-	            if (tabIdActivate === null
-	            	&& structWnd.length > 0) {
-	                tabIdActivate = Array.from(structWnd.keys())[0];
-	            }
-
-	            // Activate the specified tab
-	            if (tabIdActivate !== null) {
-	                chrome.tabs.update(tabIdActivate, { active: true });
-	            }
 	        }
-        }
+	    });
 	}
 
 
@@ -860,7 +862,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 						statusElem.classList.remove('muted');
 				}
 				// Audible
-				else if (_changeInfo.audible !== undefined) {
+				if (_changeInfo.audible !== undefined) {
 					const statusElem = tabElem.querySelector('.tab-item-status') || null;
 					if (_changeInfo.audible)
 						statusElem.classList.add('audible');
@@ -868,14 +870,14 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 						statusElem.classList.remove('audible');
 				}
 				// Title
-				else if (_changeInfo.title !== undefined) {
+				if (_changeInfo.title !== undefined) {
 					const titleElem = tabElem.querySelector('.tab-item-title') || null;
 					tabElem.title = _changeInfo.title;
 					if (titleElem)
 						titleElem.innerHTML = _changeInfo.title;
 				}
 				// Favicon
-				else if (_changeInfo.favIconUrl !== undefined) {
+				if (_changeInfo.favIconUrl !== undefined) {
 					const faviconElem = tabElem.querySelector('.tab-item-favicon') || null;
 					faviconElem.onerror = function() {
 						this.onerror = function() {
@@ -911,7 +913,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 					}
 				}
 				// Loading progression
-				else if (_changeInfo.status !== undefined) {
+				if (_changeInfo.status !== undefined) {
 					if (_changeInfo.status === 'complete') {
 						if (_tab.favIconUrl === undefined
 							|| _tab.favIconUrl === '') {
@@ -938,7 +940,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 					}
 				}
 				// Discarded / frozen
-				else if (_changeInfo.discarded !== undefined
+				if (_changeInfo.discarded !== undefined
 					|| _changeInfo.hibernate !== undefined) {
 					const statusElem = tabElem.querySelector('.tab-item-status') || null;
 					void statusElem.offsetWidth;
@@ -963,14 +965,14 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 	 */
 	async function syncTabsList(_purge = false) {
 		await mutexDOM.runExclusive(async () => {
-			if (_purge) {
-				contTabsPinned.innerHTML = '';
-				contTabsNormal.innerHTML = '';
-			}
-
-			const tabstruct = await tabstructGet();
-
 			await chrome.tabs.query({ currentWindow: true }, async function(tabs) {
+				const tabstruct = await tabstructGet();
+
+				if (_purge) {
+					contTabsPinned.innerHTML = '';
+					contTabsNormal.innerHTML = '';
+				}
+
 				const arrIDsPinned = tabs
 				.filter(tab => tab.pinned)
 				.map(tab => tab.id);
@@ -1521,7 +1523,6 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 	function createTab_root_dragndrop(domFrag) {
 		return new Promise((resolve) => {
 			initDragDrop(domFrag);
-
 		    resolve();
 		});
 	}
@@ -1537,9 +1538,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 				domFrag.status.classList.add('muted');
 			if (_tabInfo.audible)
 				domFrag.status.classList.add('audible');
-			if (_tabInfo.discarded
+			/*if (_tabInfo.discarded
 				|| _tabInfo.hibernate)
-				domFrag.status.classList.add('hibernated');
+				domFrag.status.classList.add('hibernated');*/
 			domFrag.status.addEventListener('pointerdown', async e => {
 				e.stopImmediatePropagation();
 				if (e.button === 0) {
@@ -1731,9 +1732,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		else if (e.button === 2) {
 			e.stopImmediatePropagation();
 			contextMenu_hide();
-
 			contextMenu_setPos(e);
-
 			contextMenu_show(false);
 		}
 	});
@@ -1908,9 +1907,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		 */
 		await chrome.webNavigation.onBeforeNavigate.addListener(async (details) => {
 			if (details.frameId === 0) {
-				const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
-				if (tabDOM)
-					tabDOM.style.setProperty('--progress', '0%');
+				await mutexDOM.runExclusive(async () => {
+					const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
+					if (tabDOM)
+						tabDOM.style.setProperty('--progress', '0%');
+				});
 			}
 		});
 
@@ -1920,9 +1921,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		 */
 		await chrome.webNavigation.onCommitted.addListener(async (details) => {
 			if (details.frameId === 0) {
-				const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
-				if (tabDOM)
-					tabDOM.style.setProperty('--progress', '10%');
+				await mutexDOM.runExclusive(async () => {
+					const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
+					if (tabDOM)
+						tabDOM.style.setProperty('--progress', '10%');
+				});
 			}
 		});
 		
@@ -1932,9 +1935,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		 */
 		await chrome.webNavigation.onResponseStarted?.addListener(async (details) => {
 			if (details.frameId === 0) {
-				const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
-				if (tabDOM)
-					tabDOM.style.setProperty('--progress', '30%');
+				await mutexDOM.runExclusive(async () => {
+					const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
+					if (tabDOM)
+						tabDOM.style.setProperty('--progress', '30%');
+				});
 			}
 		});
 		
@@ -1944,9 +1949,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		 */
 		await chrome.webNavigation.onHeadersReceived?.addListener(async (details) => {
 			if (details.frameId === 0) {
-				const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
-				if (tabDOM)
-					tabDOM.style.setProperty('--progress', '45%');
+				await mutexDOM.runExclusive(async () => {
+					const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
+					if (tabDOM)
+						tabDOM.style.setProperty('--progress', '45%');
+				});
 			}
 		});
 		
@@ -1956,9 +1963,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		 */
 		await chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
 			if (details.frameId === 0) {
-				const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
-				if (tabDOM)
-					tabDOM.style.setProperty('--progress', '70%');
+				await mutexDOM.runExclusive(async () => {
+					const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
+					if (tabDOM)
+						tabDOM.style.setProperty('--progress', '70%');
+				});
 			}
 		});
 		
@@ -1968,9 +1977,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		 */
 		await chrome.webNavigation.onCompleted.addListener(async (details) => {
 			if (details.frameId === 0) {
-				const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
-				if (tabDOM)
-					tabDOM.style.setProperty('--progress', '100%');
+				await mutexDOM.runExclusive(async () => {
+					const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
+					if (tabDOM)
+						tabDOM.style.setProperty('--progress', '100%');
+				});
 			}
 		});
 		
@@ -1980,9 +1991,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		 */
 		await chrome.webNavigation.onErrorOccurred.addListener(async (details) => {
 			if (details.frameId === 0) {
-				const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
-				if (tabDOM)
-					tabDOM.style.setProperty('--progress', '100%');
+				await mutexDOM.runExclusive(async () => {
+					const tabDOM = document.querySelector(`.tab-item-normal[data-tab-id="${details.tabId}"], .tab-item-pinned[data-tab-id="${details.tabId}"]`);
+					if (tabDOM)
+						tabDOM.style.setProperty('--progress', '100%');
+				});
 			}
 		});
 	}
@@ -2001,6 +2014,6 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		console.error("Cannot get current window ID", error);
 	}
 
-	syncTabsList();
 	createContextMenu();
+	syncTabsList();
 });

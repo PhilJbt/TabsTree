@@ -148,20 +148,23 @@ function findLastChild(_tabStructure, _tabId) {
  * @param {bool} _pinned - Does the tab is pinned
  * @param {number} _windowId - ID of the window
  */
-async function processPinned(_tabId, _pinned, _windowId) {
+async function processPinned(_tabId, _pinned, _windowId, _isCreated) {
     let tabstruct = await tabstructGet();
     if (tabstruct.has(_windowId)) {
         let tmp = tabstruct.get(_windowId);
+        let pinnedParentID = null;
 
-        const pinnedParentID = tmp.get(_tabId) ?? null;
+        if (!_isCreated) {
+            pinnedParentID = tmp.get(_tabId) ?? null;
 
-        // Remove the tab temporarily
-        tmp.delete(_tabId);
+            // Remove the tab temporarily
+            tmp.delete(_tabId);
 
-        // The children of the pinned tab become children of the pinned tab’s parent
-        for (const [key, value] of tmp) {
-            if (value === _tabId) {
-                tmp.set(key, pinnedParentID);
+            // The children of the pinned tab become children of the pinned tab’s parent
+            for (const [key, value] of tmp) {
+                if (value === _tabId) {
+                    tmp.set(key, pinnedParentID);
+                }
             }
         }
 
@@ -207,16 +210,18 @@ async function processPinned(_tabId, _pinned, _windowId) {
         tabstruct.set(_windowId, tmp);
         await tabstructSet(tabstruct);
 
-        chrome.runtime.sendMessage({
-            action: 'syncTabsList',
-            data: {
-                windowId: _windowId
-            }
-        }, (response) => {
-            if (chrome.runtime.lastError) {
-                return;
-            }
-        });
+        if (!_isCreated) {
+            chrome.runtime.sendMessage({
+                action: 'syncTabsList',
+                data: {
+                    windowId: _windowId
+                }
+            }, (response) => {
+                if (chrome.runtime.lastError) {
+                    return;
+                }
+            });
+        }
     }
 }
 
@@ -426,7 +431,7 @@ chrome.tabs.onCreated.addListener(async (_newTab) => {
         // Add the tab ID in this window's substructure
         if (_newTab.pinned) {
             //tabstruct.get(_newTab.windowId)?.set(_newTab.id, null);
-            await processPinned(_newTab.id, true, _newTab.windowId);
+            await processPinned(_newTab.id, true, _newTab.windowId, true);
         } else {
             let openerTabIsPinned = null;
             if (_newTab.openerTabId) {
@@ -597,7 +602,7 @@ chrome.tabs.onRemoved.addListener(async (_tabId, _removeInfo) => {
 chrome.tabs.onUpdated.addListener(async (_tabId, _changeInfo, _tab) => {
     if (_changeInfo.pinned !== undefined) {
         await mutexStorage.runExclusive(async () => {
-            await processPinned(_tabId, _changeInfo.pinned, _tab.windowId);
+            await processPinned(_tabId, _changeInfo.pinned, _tab.windowId, false);
         });
     }
 });

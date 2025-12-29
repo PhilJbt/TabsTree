@@ -172,11 +172,12 @@ body:hover::-webkit-scrollbar-thumb {
     background-color: #d30000;
 }
 .tab-item-status.muted.hibernated {
-    background-color: #d30000;
-    animation: pulseHibernatedMuted 2s ease-out;
+    /*background-color: #d30000;
+    animation: pulseHibernatedMuted 2s ease-out;*/
 }
 .tab-item-status.hibernated {
-    animation: pulseHibernated 2s ease-out;
+    /*animation: pulseHibernated 2s ease-out;*/
+    background-color: #00c9d3;
 }
 .tab-item-normal:hover .tab-item-status,
 .tab-item-pinned:hover .tab-item-status {
