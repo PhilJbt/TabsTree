@@ -141,6 +141,85 @@ function findLastChild(_tabStructure, _tabId) {
     return { found: false, index: 0 };
 }
 
+/**
+ * If the tab is pinned (chrome.tabs.onUpdate under Chrome, chrome.tabs.onCreated under Vivaldi),
+ * place its ID at the end of the pinned tabs chunk of the storage.
+ * @param {number} _tabId - ID of the tab
+ * @param {bool} _pinned - Does the tab is pinned
+ * @param {number} _windowId - ID of the window
+ */
+async function processPinned(_tabId, _pinned, _windowId) {
+    let tabstruct = await tabstructGet();
+    if (tabstruct.has(_windowId)) {
+        let tmp = tabstruct.get(_windowId);
+
+        const pinnedParentID = tmp.get(_tabId) ?? null;
+
+        // Remove the tab temporarily
+        tmp.delete(_tabId);
+
+        // The children of the pinned tab become children of the pinned tab’s parent
+        for (const [key, value] of tmp) {
+            if (value === _tabId) {
+                tmp.set(key, pinnedParentID);
+            }
+        }
+
+        // Put the pinned tab to the end of the pinned tabs chunk
+        if (_pinned) {
+            // Find the last pinned tab in the structure
+            let lastPinnedID = null;
+            const tabs = await queryTabsAsync({ windowId: _windowId });
+            for (const tab of tmp.keys()) {
+                const tabInfos = tabs.find(t => t.id === tab);
+                const tabIsPinned = tabInfos.pinned;
+                if (tabIsPinned) {
+                    if (tab !== _tabId)
+                        lastPinnedID = tab;
+                } else {
+                    break;
+                }
+            }
+            const keysArray = Array.from(tmp.keys());
+            let indexCut = null;
+            if (lastPinnedID !== null && keysArray.includes(lastPinnedID))
+                indexCut = keysArray.indexOf(lastPinnedID) + 1;
+            else
+                indexCut = 0;
+
+
+            // Slice and merge the window's structure to put the pinned tab at the end of the pinned tabs list
+            const tmpEndPinned = indexCut > 0 ? new Map(Array.from(tmp.entries()).slice(0, indexCut)) : new Map();
+            const tmpBegNormal = indexCut < tmp.size ? new Map(Array.from(tmp.entries()).slice(indexCut)) : new Map();
+            const tmpTog = new Map([
+                ...Array.from(tmpEndPinned.entries()),
+                [_tabId, null],
+                ...Array.from(tmpBegNormal.entries())
+            ]);
+
+            // Update the window's structure
+            tmp = tmpTog;
+        } else {
+            // Push the unpinned tab to the end of the list of the normal tabs
+            tmp.set(_tabId, null);
+        }
+
+        tabstruct.set(_windowId, tmp);
+        await tabstructSet(tabstruct);
+
+        chrome.runtime.sendMessage({
+            action: 'syncTabsList',
+            data: {
+                windowId: _windowId
+            }
+        }, (response) => {
+            if (chrome.runtime.lastError) {
+                return;
+            }
+        });
+    }
+}
+
 
 
 /**
@@ -346,7 +425,8 @@ chrome.tabs.onCreated.addListener(async (_newTab) => {
 
         // Add the tab ID in this window's substructure
         if (_newTab.pinned) {
-            tabstruct.get(_newTab.windowId)?.set(_newTab.id, null);
+            //tabstruct.get(_newTab.windowId)?.set(_newTab.id, null);
+            await processPinned(_newTab.id, true, _newTab.windowId);
         } else {
             let openerTabIsPinned = null;
             if (_newTab.openerTabId) {
@@ -517,75 +597,7 @@ chrome.tabs.onRemoved.addListener(async (_tabId, _removeInfo) => {
 chrome.tabs.onUpdated.addListener(async (_tabId, _changeInfo, _tab) => {
     if (_changeInfo.pinned !== undefined) {
         await mutexStorage.runExclusive(async () => {
-            let tabstruct = await tabstructGet();
-            if (tabstruct.has(_tab.windowId)) {
-                let tmp = tabstruct.get(_tab.windowId);
-
-                const pinnedParentID = tmp.get(_tabId) ?? null;
-
-                // Remove the tab temporarily
-                tmp.delete(_tabId);
-
-                // The children of the pinned tab become children of the pinned tab’s parent
-                for (const [key, value] of tmp) {
-                    if (value === _tabId) {
-                        tmp.set(key, pinnedParentID);
-                    }
-                }
-
-                // Put the pinned tab to the end of the pinned tabs chunk
-                if (_changeInfo.pinned) {
-                    // Find the last pinned tab in the structure
-                    let lastPinnedID = null;
-                    const tabs = await queryTabsAsync({ windowId: _tab.windowId });
-                    for (const tab of tmp.keys()) {
-                        const tabInfos = tabs.find(t => t.id === tab);
-                        const tabIsPinned = tabInfos.pinned;
-                        if (tabIsPinned) {
-                            if (tab !== _tabId)
-                                lastPinnedID = tab;
-                        } else {
-                            break;
-                        }
-                    }
-                    const keysArray = Array.from(tmp.keys());
-                    let indexCut = null;
-                    if (lastPinnedID != null && keysArray.includes(lastPinnedID))
-                        indexCut = keysArray.indexOf(lastPinnedID) + 1;
-                    else
-                        indexCut = 0;
-
-
-                    // Slice and merge the window's structure to put the pinned tab at the end of the pinned tabs list
-                    const tmpEndPinned = indexCut > 0 ? new Map(Array.from(tmp.entries()).slice(0, indexCut)) : new Map();
-                    const tmpBegNormal = indexCut < tmp.size ? new Map(Array.from(tmp.entries()).slice(indexCut)) : new Map();
-                    const tmpTog = new Map([
-                        ...Array.from(tmpEndPinned.entries()),
-                        [_tabId, null],
-                        ...Array.from(tmpBegNormal.entries())
-                    ]);
-
-                    // Update the window's structure
-                    tmp = tmpTog;
-                } else {
-                    // Push the unpinned tab to the end of the list of the normal tabs
-                    tmp.set(_tabId, null);
-                }
-
-                tabstruct.set(_tab.windowId, tmp);
-                await tabstructSet(tabstruct);
-
-                chrome.runtime.sendMessage({
-                    action: 'syncTabsList',
-                    data: {
-                        windowId: _tab.windowId
-                    }
-                }, (response) => {
-                    if (chrome.runtime.lastError) {
-                        return;
-                    }
-                });
-            }
+            await processPinned(_tabId, _changeInfo.pinned, _tab.windowId);
         });
     }
 });

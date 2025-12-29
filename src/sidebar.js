@@ -182,6 +182,10 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 	}
 
 	
+
+	/**
+	 * Create the Mute button into the Right-click context menu
+	 */
 	function createContextMenu_mute() {
 		return new Promise((resolve) => {
 			contCntxMenu_mute.src = chrome.runtime.getURL('images/icons/volume-xmark-solid-full.svg');
@@ -189,18 +193,23 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_mute.title = chrome.i18n.getMessage('mute');
 			contCntxMenu_mute.addEventListener('pointerup', async (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.mute') return;
+				|| !event.target.classList.contains('context-menu-button', 'mute')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
 				const tabInfo = await queryTabInfo(contextMenu_targetID);
-				chrome.tabs.update(contextMenu_targetID, {muted: !tabInfo?.mutedInfo?.muted ?? false});
+				if (tabInfo)
+					chrome.tabs.update(contextMenu_targetID, {muted: !tabInfo?.mutedInfo?.muted ?? false});
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Pin button into the Right-click context menu
+	 */
 	function createContextMenu_pin() {
 		return new Promise((resolve) => {
 			contCntxMenu_pin.src = chrome.runtime.getURL('images/icons/thumbtack-solid-full.svg');
@@ -208,18 +217,23 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_pin.title = chrome.i18n.getMessage('pin');
 			contCntxMenu_pin.addEventListener('pointerup', async (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.pin') return;
+				|| !event.target.classList.contains('context-menu-button', 'pin')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
 				const tabInfo = await queryTabInfo(contextMenu_targetID);
-				chrome.tabs.update(contextMenu_targetID, {pinned: !tabInfo.pinned ?? false});
+				if (tabInfo)
+					chrome.tabs.update(contextMenu_targetID, {pinned: !tabInfo.pinned ?? false});
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Refresh button into the Right-click context menu
+	 */
 	function createContextMenu_refresh() {
 		return new Promise((resolve) => {
 			contCntxMenu_refresh.src = chrome.runtime.getURL('images/icons/retweet-solid-full.svg');
@@ -227,7 +241,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_refresh.title = chrome.i18n.getMessage('refresh');
 			contCntxMenu_refresh.addEventListener('pointerup', (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.refresh') return;
+				|| !event.target.classList.contains('context-menu-button', 'refresh')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
@@ -235,12 +249,16 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 					chrome.tabs.reload(contextMenu_targetID, { bypassCache: true });
 				else
 					chrome.tabs.reload(contextMenu_targetID, {});
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Copy URL button into the Right-click context menu
+	 */
 	function createContextMenu_copyurl() {
 		return new Promise((resolve) => {
 			contCntxMenu_copyurl.src = chrome.runtime.getURL('images/icons/link-solid-full.svg');
@@ -248,18 +266,23 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_copyurl.title = chrome.i18n.getMessage('copyurl');
 			contCntxMenu_copyurl.addEventListener('pointerup', async (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.copyurl') return;
+				|| !event.target.classList.contains('context-menu-button', 'copyurl')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
 				const tabInfo = await queryTabInfo(contextMenu_targetID);
-				navigator.clipboard.writeText(tabInfo.url);
+				if (tabInfo)
+					navigator.clipboard.writeText(tabInfo.url);
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Duplicate button into the Right-click context menu
+	 */
 	function createContextMenu_duplicate() {
 		return new Promise((resolve) => {
 			contCntxMenu_duplicate.src = chrome.runtime.getURL('images/icons/clone-solid-full.svg');
@@ -267,7 +290,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_duplicate.title = chrome.i18n.getMessage('duplicate');
 			contCntxMenu_duplicate.addEventListener('pointerup', async (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.duplicate') return;
+				|| !event.target.classList.contains('context-menu-button', 'duplicate')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 				
@@ -291,12 +314,17 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 						syncBypass: false
 					}
 				});
+
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Bookmark button into the Right-click context menu
+	 */
 	function createContextMenu_bookmark() {
 		return new Promise((resolve) => {
 			contCntxMenu_bookmark.src = chrome.runtime.getURL('images/icons/bookmark-solid-full.svg');
@@ -304,48 +332,55 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_bookmark.title = chrome.i18n.getMessage('bookmark');
 			contCntxMenu_bookmark.addEventListener('pointerup', async (event) => {
 				if (event.button !== 0
-					|| event.target == '.context-menu-button.bookmark') return;
+				|| !event.target.classList.contains('context-menu-button', 'bookmark')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
 				const tabInfo = await queryTabInfo(contextMenu_targetID);
 				const BOOKMARKS_BAR_ID = "1";
 
-				if (contCntxMenu.classList.contains('special')
-					&& !tabInfo.pinned) {
-					let links = [{ title: tabInfo.title, url: tabInfo.url }];
-					const tabstruct = await tabstructGet();
-					for (const [key, val] of tabstruct) {
-						if (val === contextMenu_targetID) {
-							const childInfo = await queryTabInfo(key);
-							links.push({ title: childInfo.title, url: childInfo.url });
+				if (tabInfo) {
+					if (contCntxMenu.classList.contains('special')
+						&& !tabInfo.pinned) {
+						let links = [{ title: tabInfo.title, url: tabInfo.url }];
+						const tabstruct = await tabstructGet();
+						for (const [key, val] of tabstruct) {
+							if (val === contextMenu_targetID) {
+								const childInfo = await queryTabInfo(key);
+								links.push({ title: childInfo.title, url: childInfo.url });
+							}
 						}
-					}
 
-					chrome.bookmarks.create(
-					  { parentId: BOOKMARKS_BAR_ID, title: tabInfo.url },
-					  (folder) => {
-					    links.forEach((b) => {
-					      chrome.bookmarks.create({ parentId: folder.id, title: b.title, url: b.url });
-					    });
-					  }
-					);
-				} else {
-					chrome.bookmarks.getChildren(BOOKMARKS_BAR_ID, (children) => {
-						chrome.bookmarks.create({
-							parentId: BOOKMARKS_BAR_ID,
-							index: children.length,
-							title: tabInfo.title,
-							url: tabInfo.url
+						chrome.bookmarks.create(
+						  { parentId: BOOKMARKS_BAR_ID, title: tabInfo.url },
+						  (folder) => {
+						    links.forEach((b) => {
+						      chrome.bookmarks.create({ parentId: folder.id, title: b.title, url: b.url });
+						    });
+						  }
+						);
+					} else {
+						chrome.bookmarks.getChildren(BOOKMARKS_BAR_ID, (children) => {
+							chrome.bookmarks.create({
+								parentId: BOOKMARKS_BAR_ID,
+								index: children.length,
+								title: tabInfo.title,
+								url: tabInfo.url
+							});
 						});
-					});
+					}
 				}
+
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Hibernate button into the Right-click context menu
+	 */
 	function createContextMenu_hibernate() {
 		return new Promise((resolve) => {
 			contCntxMenu_hibernate.src = chrome.runtime.getURL('images/icons/snowflake-solid-full.svg');
@@ -353,18 +388,22 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_hibernate.title = chrome.i18n.getMessage('hibernate');
 			contCntxMenu_hibernate.addEventListener('pointerup', (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.hibernate'
-				|| contCntxMenu_hibernate.classList.contains('disabled')) return;
+				|| !event.target.classList.contains('context-menu-button', 'hibernate')
+				|| contCntxMenu_hibernate.hasAttribute('inert')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
 				chrome.tabs.discard(contextMenu_targetID);
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Close button into the Right-click context menu
+	 */
 	function createContextMenu_close() {
 		return new Promise((resolve) => {
 			contCntxMenu_close.src = chrome.runtime.getURL('images/icons/xmark-solid-full.svg');
@@ -372,39 +411,50 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_close.title = chrome.i18n.getMessage('close');
 			contCntxMenu_close.addEventListener('pointerup', async (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.close') return;
+				|| !event.target.classList.contains('context-menu-button', 'close')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
 				const tabInfo = await queryTabInfo(contextMenu_targetID);
 
-				if (contCntxMenu.classList.contains('special')
+				if (tabInfo
 				&& !tabInfo.pinned) {
-					let tabsToClose = [contextMenu_targetID];
-					let idToVisit = [contextMenu_targetID];
-					const tabstruct = await tabstructGet();
-					while (idToVisit.length > 0) {
-						for (const [key, val] of tabstruct) {
-							if (val === idToVisit[0]) {
-								idToVisit.push(key);
-								tabsToClose.push(key);
-							}
-						}
-						idToVisit.shift();
-					}
+					const tabDom = document.querySelector(`.tab-item-pinned[data-tab-id="${contextMenu_targetID}"]`);
+					if (tabDom)
+						tabDom.setAttribute('inert', '');
 
-					await chooseTabToActivate(tabsToClose[0]);
-					chrome.tabs.remove(tabsToClose);
-				} else {
-					await chooseTabToActivate(contextMenu_targetID);
-					chrome.tabs.remove(contextMenu_targetID);
+					if (contCntxMenu.classList.contains('special')) {
+						let tabsToClose = [contextMenu_targetID];
+						let idToVisit = [contextMenu_targetID];
+						const tabstruct = await tabstructGet();
+						while (idToVisit.length > 0) {
+							for (const [key, val] of tabstruct) {
+								if (val === idToVisit[0]) {
+									idToVisit.push(key);
+									tabsToClose.push(key);
+								}
+							}
+							idToVisit.shift();
+						}
+
+						await chooseTabToActivate(tabsToClose[0]);
+						chrome.tabs.remove(tabsToClose);
+					} else {
+						await chooseTabToActivate(contextMenu_targetID);
+						chrome.tabs.remove(contextMenu_targetID);
+					}
 				}
+
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the New tab button into the Right-click context menu
+	 */
 	function createContextMenu_newtab() {
 		return new Promise((resolve) => {
 			contCntxMenu_newtab.src = chrome.runtime.getURL('images/icons/plus-solid-full.svg');
@@ -412,50 +462,60 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_newtab.title = chrome.i18n.getMessage('newtab');
 			contCntxMenu_newtab.addEventListener('pointerup', async (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.newtab') return;
+				|| !event.target.classList.contains('context-menu-button', 'newtab')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
-				const tabInfo = await queryTabInfo(contextMenu_targetID);
-
-				if (contCntxMenu.classList.contains('special')
-					&& !tabInfo.pinned) {
-					const tabNew = await chrome.tabs.create({
-					  windowId: tabInfo.windowId,
-					  index: tabInfo.index,
-					  url: await optionGet("defaulturl"),
-					  active: false
-					});
-
-					chrome.runtime.sendMessage({
-						type: 'movetabs',
-						payload: {
-							windowIdOrig: tabInfo.windowId,
-							windowIdDest: tabInfo.windowId,
-							tabIdMoving: tabNew.id,
-							tabIdTarget: contextMenu_targetID,
-							movingAbove: false,
-							itemsNumber: 1,
-							syncBypass: true
-						}
-					});
-				} else {
-					if (event.button !== 0
-					|| event.target == '.context-menu-button.newtab') return;
-					event.stopImmediatePropagation();
-					contextMenu_hide();
-
+				if (contextMenu_targetID === -1) {
 					chrome.tabs.create({
-					  url: await optionGet("defaulturl"),
-					  active: false
+						url: await optionGet("defaulturl"),
+						active: false
 					});
 				}
+				else {
+					const tabInfo = await queryTabInfo(contextMenu_targetID);
+
+					if (tabInfo) {
+						if (contCntxMenu.classList.contains('special')
+							&& !tabInfo.pinned) {
+							const tabNew = await chrome.tabs.create({
+							  windowId: tabInfo.windowId,
+							  index: tabInfo.index,
+							  url: await optionGet("defaulturl"),
+							  active: false
+							});
+
+							chrome.runtime.sendMessage({
+								type: 'movetabs',
+								payload: {
+									windowIdOrig: tabInfo.windowId,
+									windowIdDest: tabInfo.windowId,
+									tabIdMoving: tabNew.id,
+									tabIdTarget: contextMenu_targetID,
+									movingAbove: false,
+									itemsNumber: 1,
+									syncBypass: true
+								}
+							});
+						} else {
+							chrome.tabs.create({
+							  url: await optionGet("defaulturl"),
+							  active: false
+							});
+						}
+					}
+				}
+
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Reopen button into the Right-click context menu
+	 */
 	function createContextMenu_reopen() {
 		return new Promise((resolve) => {
 			contCntxMenu_reopen.src = chrome.runtime.getURL('images/icons/arrow-up-right-from-square-solid-full.svg');
@@ -463,7 +523,7 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 			contCntxMenu_reopen.title = chrome.i18n.getMessage('reopen');
 			contCntxMenu_reopen.addEventListener('pointerup', (event) => {
 				if (event.button !== 0
-				|| event.target == '.context-menu-button.reopen') return;
+				|| !event.target.classList.contains('context-menu-button', 'reopen')) return;
 				event.stopImmediatePropagation();
 				contextMenu_hide();
 
@@ -476,12 +536,17 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 
 					chrome.sessions.restore(sessionId);
 				});
+
+				contextMenu_targetID = -1;
 			}, { passive: false });
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the Right-click context menu
+	 */
 	async function createContextMenu() {
 		contCntxMenu_subdiv1.classList.add('context-menu-subdiv');
 		contCntxMenu_divider.classList.add('context-menu-divider');
@@ -616,6 +681,87 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 
 
 	/**
+	 * If the favicon source is not provided, attempt to determine whether a favicon can be displayed based on the context (Chrome Extension page or MIME type)
+	 * @param {string} - Url of the page itself, not the src of the favicon
+	 * @return {string} - Url of the favicon
+	 */
+	function faviconFromUrl(_url) {
+		try {
+			const url = new URL(_url);
+
+			if (url.pathname.lastIndexOf('.') !== -1) {
+				const fileExtension = url.pathname.substr(url.pathname.lastIndexOf('.'));
+
+				switch (fileExtension) {
+				case '.apng':
+				case '.avif':
+				case '.bmp':
+				case '.cur':
+				case '.gif':
+				case '.ico':
+				case '.jpeg':
+				case '.jpg':
+				case '.png':
+				case '.svg':
+				case '.tif':
+				case '.tiff':
+				case '.webp':
+					return { knownType: true, src: chrome.runtime.getURL('images/filetypes/file-image-solid-full.svg') };
+					break;
+				case '.flac':
+				case '.m4a':
+				case '.mp3':
+				case '.ogg':
+				case '.wav':
+					return { knownType: true, src: chrome.runtime.getURL('images/filetypes/file-audio-solid-full.svg') };
+					break;
+				case '.avi':
+				case '.mkv':
+				case '.mov':
+				case '.mp4':
+				case '.mpg':
+				case '.mpeg':
+				case '.webm':
+					return { knownType: true, src: chrome.runtime.getURL('images/filetypes/file-video-solid-full.svg') };
+					break;
+				case '.c':
+				case '.css':
+				case '.cpp':
+				case '.dat':
+				case '.md':
+				case '.js':
+				case '.json':
+				case '.php':
+				case '.py':
+				case '.xml':
+					return { knownType: true, src: chrome.runtime.getURL('images/filetypes/file-code-solid-full.svg') };
+					break;
+				case '.text':
+				case '.txt':
+					return { knownType: true, src: chrome.runtime.getURL('images/filetypes/file-lines-solid-full.svg') };
+					break;
+				case '.svg':
+					return { knownType: true, src: chrome.runtime.getURL('images/filetypes/file-contract-solid-full.svg') };
+					break;
+				case '.pdf':
+					return { knownType: true, src: chrome.runtime.getURL('images/filetypes/file-pdf-solid-full.svg') };
+					break;
+				}
+			}
+
+			if (_url.substr(0, 9) === 'chrome://'
+				|| _url.substr(0, 19) === 'chrome-extension://')
+				return { knownType: true, src: chrome.runtime.getURL('images/chrome-32.png') };
+			else
+				return { knownType: false, src: null };
+		} catch (error){
+			return { knownType: false, src: null };
+		}
+	}
+
+
+
+	/**
 	 * Create a new tab in the DOM
 	 * @param {Promise<Tab>} _newTab - Properties of the tab
 	 * @param {Map<number, number||null>} _tabstruct - Map of tabs hierarchy for the current windowId
@@ -702,84 +848,112 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 	 * @param {object} _tab - Tab properties
 	 */
 	async function onUpdated(_tabId, _changeInfo, _tab) {
-		const tabElem = document.querySelector(`.tab-item-pinned[data-tab-id="${_tabId}"], .tab-item-normal[data-tab-id="${_tabId}"]`) || null;
-		if (tabElem) {
-			// Muted
-			if (_changeInfo.mutedInfo !== undefined) {
-				const statusElem = tabElem.querySelector('.tab-item-status') || null;
-				if (_changeInfo.mutedInfo.muted)
-					statusElem.classList.add('muted');
-				else
-					statusElem.classList.remove('muted');
-			}
-			// Audible
-			else if (_changeInfo.audible !== undefined) {
-				const statusElem = tabElem.querySelector('.tab-item-status') || null;
-				if (_changeInfo.audible)
-					statusElem.classList.add('audible');
-				else
-					statusElem.classList.remove('audible');
-			}
-			// Title
-			else if (_changeInfo.title !== undefined) {
-				const titleElem = tabElem.querySelector('.tab-item-title') || null;
-				tabElem.title = _changeInfo.title;
-				if (titleElem)
-					titleElem.innerHTML = _changeInfo.title;
-			}
-			// Favicon
-			else if (_changeInfo.favIconUrl !== undefined) {
-				const faviconElem = tabElem.querySelector('.tab-item-favicon') || null;
-				faviconElem.onerror = function() {
-					this.onerror = function() {
-					    this.src ='';
-					    this.onerror = null;
-					};
-					if (this.src.substr(0, 9) === 'chrome://'
-					|| this.src.substr(0, 19) === 'chrome-extension://')
-						this.src = '';
+		try {
+			const tabElem = document.querySelector(`.tab-item-pinned[data-tab-id="${_tabId}"], .tab-item-normal[data-tab-id="${_tabId}"]`) || null;
+			if (tabElem) {
+				// Muted
+				if (_changeInfo.mutedInfo !== undefined) {
+					const statusElem = tabElem.querySelector('.tab-item-status') || null;
+					if (_changeInfo.mutedInfo.muted)
+						statusElem.classList.add('muted');
 					else
-						this.src = `https://www.google.com/s2/favicons?domain=${this.src}&sz=24`;
-				};
-				faviconElem.src = _changeInfo.favIconUrl;
-			}
-			// Loading progression
-			else if (_changeInfo.status !== undefined
-				&& _changeInfo.status === 'complete') {
-				if (_tab.favIconUrl === undefined
-					|| _tab.favIconUrl === '') {
-					const faviconElem = tabElem.querySelector('.tab-item-favicon') || null;
-					if (_tab.url.substr(0, 9) === 'chrome://'
-					|| _tab.url.substr(0, 19) === 'chrome-extension://')
-						faviconElem.src = chrome.runtime.getURL('images/chrome-32.png');
+						statusElem.classList.remove('muted');
 				}
+				// Audible
+				else if (_changeInfo.audible !== undefined) {
+					const statusElem = tabElem.querySelector('.tab-item-status') || null;
+					if (_changeInfo.audible)
+						statusElem.classList.add('audible');
+					else
+						statusElem.classList.remove('audible');
+				}
+				// Title
+				else if (_changeInfo.title !== undefined) {
+					const titleElem = tabElem.querySelector('.tab-item-title') || null;
+					tabElem.title = _changeInfo.title;
+					if (titleElem)
+						titleElem.innerHTML = _changeInfo.title;
+				}
+				// Favicon
+				else if (_changeInfo.favIconUrl !== undefined) {
+					const faviconElem = tabElem.querySelector('.tab-item-favicon') || null;
+					faviconElem.onerror = function() {
+						this.onerror = function() {
+						    this.src = chrome.runtime.getURL('images/blank-24.png');
+						    this.classList.add('empty');
+						    this.onerror = null;
+						};
+				
+						if ((_tab.url || _tab.pendingUrl).substr(0, 9) === 'chrome://'
+						|| (_tab.url || _tab.pendingUrl).substr(0, 19) === 'chrome-extension://') {
+							this.src = chrome.runtime.getURL('images/chrome-32.png');
+							this.classList.remove('empty');
+							this.onerror = null;
+						}
+						else {
+							this.src = `https://www.google.com/s2/favicons?domain=${this.src}&sz=24`;
+							this.classList.remove('empty');
+						}
+					};
 
-				const titleElem = tabElem.querySelector('.tab-item-title') || null;
-				const tabInfo = await chrome.tabs.get(_tabId);
-				if (tabInfo) {
-					if (tabElem.title === '')
-						tabElem.title = tabInfo.url;
-					if (titleElem
-						&& titleElem.innerHTML === '') {
-						titleElem.innerHTML = tabInfo.url;
+					if (_changeInfo.favIconUrl
+						&& _changeInfo.favIconUrl !== '') {
+						faviconElem.src = _changeInfo.favIconUrl;
+						faviconElem.classList.remove('empty');
+					}
+					else if (_tab.url || _tab.pendingUrl) {
+						const ret = faviconFromUrl(_tab.url || _tab.pendingUrl);
+
+						if (ret.knownType === true) {
+							faviconElem.src = ret.src;
+							faviconElem.classList.remove('empty');
+						}
 					}
 				}
-			}
-			// Discarded / frozen
-			else if (_changeInfo.discarded !== undefined
-				|| _changeInfo.hibernate !== undefined) {
-				const statusElem = tabElem.querySelector('.tab-item-status') || null;
-				void statusElem.offsetWidth;
-				if (_changeInfo.discarded === true || _changeInfo.hibernate === true)
-					statusElem.classList.add('hibernated');
-				else
-					statusElem.classList.remove('hibernated');
-			}
-		}
+				// Loading progression
+				else if (_changeInfo.status !== undefined) {
+					if (_changeInfo.status === 'complete') {
+						if (_tab.favIconUrl === undefined
+							|| _tab.favIconUrl === '') {
+							const faviconElem = tabElem.querySelector('.tab-item-favicon') || null;
+							if (faviconElem
+							&& ((_tab.url || _tab.pendingUrl).substr(0, 9) === 'chrome://'
+							|| (_tab.url || _tab.pendingUrl).substr(0, 19) === 'chrome-extension://')) {
+								faviconElem.src = chrome.runtime.getURL('images/chrome-32.png');
+								faviconElem.onerror = null;
+								faviconElem.classList.remove('empty');
+							}
+						}
 
-		requestAnimationFrame(() => {
-			null;
-		});
+						const titleElem = tabElem.querySelector('.tab-item-title') || null;
+						const tabInfo = await chrome.tabs.get(_tabId);
+						if (tabInfo) {
+							if (tabElem.title === '')
+								tabElem.title = tabInfo.url;
+							if (titleElem
+								&& titleElem.innerHTML === '') {
+								titleElem.innerHTML = tabInfo.url;
+							}
+						}
+					}
+				}
+				// Discarded / frozen
+				else if (_changeInfo.discarded !== undefined
+					|| _changeInfo.hibernate !== undefined) {
+					const statusElem = tabElem.querySelector('.tab-item-status') || null;
+					void statusElem.offsetWidth;
+					if (_changeInfo.discarded === true || _changeInfo.hibernate === true)
+						statusElem.classList.add('hibernated');
+					else
+						statusElem.classList.remove('hibernated');
+				}
+			}
+
+			requestAnimationFrame(() => {
+				null;
+			});
+		} catch (error) {
+		}
 	}
 
 	/**
@@ -1030,6 +1204,10 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the Pointer Down event listener of a tab.
+	 * Used for tab activation or swiping right
+	 */
 	function createTab_root_pointer_down(domFrag, domInfo) {
 		return new Promise((resolve) => {
 			domFrag.root.addEventListener('pointerdown', (e) => {
@@ -1047,6 +1225,10 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the Pointer Move event listener of a tab.
+	 * Used for swiping right.
+	 */
 	function createTab_root_pointer_move(domFrag, domInfo) {
 		return new Promise((resolve) => {
 			domFrag.root.addEventListener('pointermove', e => {
@@ -1071,6 +1253,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create different types of Pointer Up event listener of a tab.
+	 */
 	async function createTab_root_pointer_up(domFrag, domInfo) {
 		await Promise.all([
 			createTab_root_pointer_dblclick(domFrag),
@@ -1080,6 +1265,10 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		]);
 	}
 
+	/**
+	 * Create the Pointer Up event listener of a tab.
+	 * Used to avoid tab creation when double cliking on a tab.
+	 */
 	function createTab_root_pointer_dblclick(domFrag) {
 		return new Promise((resolve) => {
 			domFrag.root.addEventListener('dblclick', e => {
@@ -1090,6 +1279,10 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the Pointer Up event listener of a tab.
+	 * Used for the end of swiping right.
+	 */
 	function createTab_root_pointer_up_lmb(domFrag, domInfo) {
 		return new Promise((resolve) => {
 			domFrag.root.addEventListener('pointerup', async e => {
@@ -1102,24 +1295,27 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 					if (domInfo.isPinned
 						|| domInfo.isSwiping) {
 						domInfo.isSwiping = false;
+						const tabId = parseInt(domFrag.root.dataset.tabId);
 
-						if (domInfo.isPinned
-							|| !domInfo.isClosing) {
-							domFrag.root.style.opacity = 1.0;
-							domFrag.root.style.translate = '0 0';
+						if (!isNaN(tabId)) {
+							if (domInfo.isPinned
+								|| !domInfo.isClosing) {
+								domFrag.root.style.opacity = 1.0;
+								domFrag.root.style.translate = '0 0';
 
-							chrome.tabs.update(parseInt(e.currentTarget.dataset.tabId), { active: true }, (tab) => {
-								if (chrome.runtime.lastError) {
-									console.error('domFrag.root.addEventListener(pointerup):', chrome.runtime.lastError);
+								chrome.tabs.update(tabId, { active: true }, (tab) => {
+									if (chrome.runtime.lastError) {
+										console.error('domFrag.root.addEventListener(pointerup):', chrome.runtime.lastError);
+									}
+								});
+							} else {
+								try {
+									domFrag.root.setAttribute('inert', '');
+									await chooseTabToActivate(tabId);
+								    await chrome.tabs.remove(tabId);
+								} catch (error) {
+								    console.error('Erreur:', error);
 								}
-							});
-						} else {
-							try {
-								const tabId = parseInt(e.currentTarget.closest('.tab-item-pinned, .tab-item-normal').dataset.tabId);
-								await chooseTabToActivate(tabId);
-							    await chrome.tabs.remove(tabId);
-							} catch (error) {
-							    console.error('Erreur:', error);
 							}
 						}
 					}
@@ -1131,6 +1327,10 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the Pointer Up event listener of a tab.
+	 * Used to close a tab.
+	 */
 	function createTab_root_pointer_up_mmb(domFrag, domInfo) {
 		return new Promise((resolve) => {
 			domFrag.root.addEventListener('pointerup', async e => {
@@ -1138,12 +1338,16 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 				&& !e.target.closest('.context-menu-button')
 				&& e.target.closest('.tab-item-pinned, .tab-item-normal')) {
 					e.stopImmediatePropagation();
-					const tabId = parseInt(e.currentTarget.closest('.tab-item-pinned, .tab-item-normal').dataset.tabId);
+
 					if (!domInfo.isPinned) {
 						e.stopImmediatePropagation();
 						try {
-							await chooseTabToActivate(tabId);
-							await chrome.tabs.remove(tabId);
+							const tabId = parseInt(domFrag.root.dataset.tabId);
+							if (!isNaN(tabId)) {
+								domFrag.root.setAttribute('inert', '');
+								await chooseTabToActivate(tabId);
+								await chrome.tabs.remove(tabId);
+							}
 						} catch (error) {
 							console.error('domFrag.root.addEventListener(mouseup):', error);
 						}
@@ -1155,6 +1359,10 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the Pointer Up event listener of a tab.
+	 * Used to display the context menu.
+	 */
 	async function createTab_root_pointer_up_rmb(domFrag) {
 		domFrag.root.addEventListener('pointerup', async event => {
 			if (event.button === 2
@@ -1188,6 +1396,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		}, { passive: false });
 	}
 
+	/**
+	 * Modify the Mute button of the Right-click context menu in accordance with the properties of the tab targeted
+	 */
 	function createTab_root_pointer_up_rmb_mute(tabInfo) {
 		return new Promise((resolve) => {
 			if (tabInfo.mutedInfo?.muted ?? false)
@@ -1200,6 +1411,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Modify the Pin button of the Right-click context menu in accordance with the properties of the tab targeted
+	 */
 	function createTab_root_pointer_up_rmb_pin(tabInfo) {
 		return new Promise((resolve) => {
 			contCntxMenu_pin.title = (tabInfo.pinned ?? false) ? chrome.i18n.getMessage('unpin') : chrome.i18n.getMessage('pin');
@@ -1208,6 +1422,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Modify the Refresh button of the Right-click context menu in accordance with the properties of the tab targeted
+	 */
 	function createTab_root_pointer_up_rmb_refresh(_event) {
 		return new Promise((resolve) => {
 			if (_event.ctrlKey) {
@@ -1222,6 +1439,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Modify the Bookmark button of the Right-click context menu in accordance with the properties of the tab targeted
+	 */
 	function createTab_root_pointer_up_rmb_bookmark(tabInfo, _event) {
 		return new Promise((resolve) => {
 			if (_event.ctrlKey
@@ -1237,24 +1457,30 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Modify the Hibernate button of the Right-click context menu in accordance with the properties of the tab targeted
+	 */
 	function createTab_root_pointer_up_rmb_hibernate(tabInfo) {
 		return new Promise((resolve) => {
 			const isDiscardable = !tabInfo.active && !tabInfo.discarded && !tabInfo.frozen;
 			if (!isDiscardable) {
-				contCntxMenu_hibernate.classList.add('disabled');
+				contCntxMenu_hibernate.setAttribute('inert', '');
 			}
 			else {
-				contCntxMenu_hibernate.classList.remove('disabled');
+				contCntxMenu_hibernate.removeAttribute('inert');
 			}
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Modify the Close tab button of the Right-click context menu in accordance with the properties of the tab targeted
+	 */
 	function createTab_root_pointer_up_rmb_close(tabInfo, _event) {
 		return new Promise((resolve) => {
 			if (!tabInfo.pinned) {
-				contCntxMenu_close.classList.remove('disabled');
+				contCntxMenu_close.removeAttribute('inert');
 				if (_event.ctrlKey) {
 					contCntxMenu_close.classList.add('special');
 					contCntxMenu_close.title = chrome.i18n.getMessage('closewithchildren');
@@ -1264,13 +1490,16 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 				}
 			} else {
 				contCntxMenu_close.classList.remove('special');
-				contCntxMenu_close.classList.add('disabled');
+				contCntxMenu_close.setAttribute('inert', '');
 			}
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Modify the New tab button of the Right-click context menu in accordance with the properties of the tab targeted
+	 */
 	function createTab_root_pointer_up_rmb_newtab(tabInfo, _event) {
 		return new Promise((resolve) => {
 			if (_event.ctrlKey
@@ -1286,6 +1515,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the Drag & Drop feature of a tab
+	 */
 	function createTab_root_dragndrop(domFrag) {
 		return new Promise((resolve) => {
 			initDragDrop(domFrag);
@@ -1294,6 +1526,9 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the Status bar of a tab
+	 */
 	function createTab_root_status(domFrag, _tabInfo) {
 		return new Promise((resolve) => {
 			domFrag.status.classList.add('tab-item-status');
@@ -1326,33 +1561,47 @@ document.addEventListener("DOMContentLoaded", async function (event) {
 		});
 	}
 
+	/**
+	 * Create the favicon skeleton of a tab
+	 */
 	function createTab_root_favicon(domFrag, _tabInfo) {
 		return new Promise((resolve) => {
 			domFrag.favicon.classList.add('tab-item-favicon');
+			domFrag.favicon.crossOrigin = 'anonymous';
 			domFrag.favicon.onerror = function() {
 				this.onerror = function() {
-				    this.src ='';
+				    this.src = chrome.runtime.getURL('images/blank-24.png');
+				    this.classList.add('empty');
 				    this.onerror = null;
 				};
-				if (this.src.substr(0, 9) === 'chrome://'
-				|| this.src.substr(0, 19) === 'chrome-extension://')
-					this.src = '';
-				else
-					this.src = `https://www.google.com/s2/favicons?domain=${this.src}&sz=24`;
+				
+				this.src = `https://www.google.com/s2/favicons?domain=${this.src}&sz=24`;
+				this.classList.remove('empty');
 			};
-		    domFrag.favicon.src ='';
+		    domFrag.favicon.src = chrome.runtime.getURL('images/blank-24.png');
+		    domFrag.favicon.classList.add('empty');
 
-			if (_tabInfo.favIconUrl)
+			if (_tabInfo.favIconUrl
+				&& _tabInfo.favIconUrl !== '') {
 				domFrag.favicon.src = _tabInfo.favIconUrl;
-			else if (_tabInfo.url
-				&& (_tabInfo.url.substr(0, 9) === 'chrome://'
-				|| _tabInfo.url.substr(0, 19) === 'chrome-extension://'))
-				domFrag.favicon.src = chrome.runtime.getURL('images/chrome-32.png');
+				domFrag.favicon.classList.remove('empty');
+			}
+			else if (_tabInfo.url || _tabInfo.pendingUrl) {
+				const ret = faviconFromUrl(_tabInfo.url || _tabInfo.pendingUrl);
+
+				if (ret.knownType === true) {
+					domFrag.favicon.src = ret.src;
+					domFrag.favicon.classList.remove('empty');
+				}
+			}
 
 		    resolve();
 		});
 	}
 
+	/**
+	 * Create the title of a tab
+	 */
 	function createTab_root_title(domFrag, _tabInfo, _type) {
 		return new Promise((resolve) => {
 			if (_type === 'normal') {

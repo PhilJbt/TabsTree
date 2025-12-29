@@ -62,3 +62,5 @@
 js-crc32 - [SheetJS](https://github.com/SheetJS/js-crc32)
 
 Logo - [Freepik](https://www.flaticon.com/free-icon/mind-map_9185588)
+
+Context menu icons - [AwesomeFont](https://fontawesome.com/)
